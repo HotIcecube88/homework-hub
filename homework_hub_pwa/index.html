@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Homework Hub</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Homework Hub</h1>
+    <div class="actions">
+      <button id="btnInstall" hidden>Install</button>
+      <button id="btnExport">Export</button>
+      <label class="import">
+        <input type="file" id="fileImport" accept=".json,.csv" hidden>
+        <span>Import</span>
+      </label>
+    </div>
+  </header>
+
+  <section class="card">
+    <h2>Add Assignment</h2>
+    <form id="formNew" autocomplete="off">
+      <input id="title" required placeholder="Title (e.g., 'Bio Lab Report')">
+      <input id="subject" placeholder="Subject (e.g., Biology)">
+      <input id="due" type="date" required>
+      <select id="priority">
+        <option value="normal" selected>Priority: Normal</option>
+        <option value="high">Priority: High</option>
+        <option value="low">Priority: Low</option>
+      </select>
+      <button type="submit">Add</button>
+    </form>
+    <div class="help">Tip: Use <kbd>/</kbd> to focus search, <kbd>N</kbd> to add new item.</div>
+  </section>
+
+  <section class="controls">
+    <div class="filters">
+      <button data-filter="today" class="chip">Today</button>
+      <button data-filter="week" class="chip">This Week</button>
+      <button data-filter="all" class="chip chip-active">All</button>
+      <button data-filter="overdue" class="chip">Overdue</button>
+      <button data-filter="done" class="chip">Done</button>
+    </div>
+    <input id="search" placeholder="Search title/subject...">
+    <select id="sort">
+      <option value="dueAsc" selected>Sort: Due Date ↑</option>
+      <option value="dueDesc">Sort: Due Date ↓</option>
+      <option value="prio">Sort: Priority</option>
+      <option value="alpha">Sort: A → Z</option>
+    </select>
+  </section>
+
+  <main id="list" class="list"></main>
+
+  <template id="tplItem">
+    <article class="item">
+      <label class="check">
+        <input type="checkbox" class="done">
+        <span></span>
+      </label>
+      <div class="meta">
+        <div class="title"></div>
+        <div class="subline"></div>
+      </div>
+      <div class="badges"></div>
+      <menu class="row-actions">
+        <button class="edit">Edit</button>
+        <button class="delete">Delete</button>
+      </menu>
+    </article>
+  </template>
+
+  <dialog id="dlgEdit">
+    <form method="dialog" id="formEdit" class="dialog-form">
+      <h3>Edit Assignment</h3>
+      <input id="e_title" required>
+      <input id="e_subject">
+      <input id="e_due" type="date" required>
+      <select id="e_priority">
+        <option value="high">Priority: High</option>
+        <option value="normal">Priority: Normal</option>
+        <option value="low">Priority: Low</option>
+      </select>
+      <menu>
+        <button value="cancel">Cancel</button>
+        <button id="btnSaveEdit" value="default">Save</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <footer class="footer">
+    <span>Offline-ready PWA • Your data stays on this device</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
